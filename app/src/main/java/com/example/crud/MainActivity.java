@@ -15,7 +15,14 @@ import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.example.crud.Adapter.Adapter;
 import com.example.crud.model.Comida;
+import com.google.firebase.FirebaseApp;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,7 +36,8 @@ public class MainActivity extends AppCompatActivity {
     private Spinner Tipo;
     private String[] Opciones = {"Seleccione","Desayuno","Sopa","Segundo","Asado","Otros"};
     private List<Comida> listComida = new ArrayList<Comida>();
-
+    FirebaseDatabase firebaseDatabase;
+    DatabaseReference databaseReference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +63,10 @@ public class MainActivity extends AppCompatActivity {
                 Tipo.setSelection(ValorSeleccionad(comidaselect.getTipo()));
             }
         });
+        FirebaseApp.initializeApp(this);
+        firebaseDatabase = FirebaseDatabase.getInstance();
+        databaseReference = firebaseDatabase.getReference();
+        litarDatos();
     }
     public int ValorSeleccionad (String texto)
     {
@@ -82,8 +94,14 @@ public class MainActivity extends AppCompatActivity {
                     validacion();
                 }
                 else {
-
-
+                    Comida c = new Comida();
+                    c.setNombre(nombre.getText().toString());
+                    c.setAcompaniado(acomp.getText().toString());
+                    c.setNombre(precio.getText().toString());
+                    c.setUdi(UUID.randomUUID().toString());
+                    c.setDisponible(disp.isChecked());
+                    c.setTipo(Tipo.getSelectedItem().toString());
+                    databaseReference.child("Comida").child(c.getUdi()).setValue(c);
                     Toast.makeText(this, "Agregar", Toast.LENGTH_LONG).show();
                     Limpiar();
                     break;
@@ -95,6 +113,14 @@ public class MainActivity extends AppCompatActivity {
                     validacion();
                 }
                 else {
+                    Comida c = new Comida();
+                    c.setNombre(nombre.getText().toString());
+                    c.setAcompaniado(acomp.getText().toString());
+                    c.setNombre(precio.getText().toString());
+                    c.setUdi(comidaselect.getUdi());
+                    c.setDisponible(disp.isChecked());
+                    c.setTipo(Tipo.getSelectedItem().toString());
+                    databaseReference.child("Comida").child(c.getUdi()).setValue(c);
 
                     Toast.makeText(this, "Guardar", Toast.LENGTH_LONG).show();
                     Limpiar();
@@ -102,7 +128,9 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
             case R.id.icon_delete:{
-
+                Comida c = new Comida();
+                c.setUdi(comidaselect.getUdi());
+                databaseReference.child("Comida").child(c.getUdi()).removeValue();
                 Toast.makeText(this,"Eliminar", Toast.LENGTH_LONG).show();
                 Limpiar();
                 break;
@@ -113,7 +141,26 @@ public class MainActivity extends AppCompatActivity {
         }
         return true;
     }
+    public void litarDatos(){
+        databaseReference.child("Comida").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                listComida.clear();
+                for (DataSnapshot objSnapshop : snapshot.getChildren())
+                {
+                    Comida c = objSnapshop.getValue(Comida.class);
+                    listComida.add(c);
+                    Adapter adapter = new Adapter(MainActivity.this,(ArrayList<Comida>) listComida);
+                    lista.setAdapter(adapter);
+                }
+            }
 
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
     public void Limpiar()
     {
         nombre.setText("");
