@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/LblNombre"
+        android:layout_width="238dp"
+        android:layout_height="wrap_content"
+        android:layout_x="0dp"
+        android:layout_y="1dp"
+        android:text="Producto"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/LblPrecio"
+        android:layout_width="91dp"
+        android:layout_height="wrap_content"
+        android:layout_x="237dp"
+        android:layout_y="2dp"
+        android:text="precio"
+        android:textSize="20sp"
+        android:textStyle="normal" />
+
+    <TextView
+        android:id="@+id/Lblcacomp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_x="1dp"
+        android:layout_y="32dp"
+        android:text="Acompaniado"
+        android:textSize="12sp"
+        android:textStyle="normal" />
+
+    <TextView
+        android:id="@+id/lblDispo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_x="0dp"
+        android:layout_y="50dp"
+        android:text="Disponible"
+        android:textSize="12sp"
+        android:textStyle="normal" />
+</LinearLayout>

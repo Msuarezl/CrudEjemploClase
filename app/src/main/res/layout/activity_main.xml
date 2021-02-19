@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity"
+    android:orientation="vertical">
+
+
+    <TextView
+        android:id="@+id/lblTitulo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Ingreso de Productos"
+        android:textAlignment="center"
+        android:textSize="40dp"
+        />
+
+    <EditText
+        android:id="@+id/txtNombre"
+        android:layout_width="332dp"
+        android:layout_height="43dp"
+        android:ems="10"
+        android:hint="Nombre del Producto"
+        android:inputType="textPersonName"
+        android:text=""
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="39dp"
+        tools:layout_editor_absoluteY="77dp" />
+
+    <EditText
+        android:id="@+id/txtAcompaniado"
+        android:layout_width="332dp"
+        android:layout_height="43dp"
+        android:ems="10"
+        android:hint="Acompañado"
+        android:inputType="textPersonName"
+        android:text=""
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="39dp"
+        tools:layout_editor_absoluteY="77dp" />
+    <EditText
+        android:id="@+id/txtPrecio"
+        android:layout_width="332dp"
+        android:layout_height="43dp"
+        android:ems="10"
+        android:hint="Precio "
+        android:inputType="textPersonName"
+        android:text=""
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="39dp"
+        tools:layout_editor_absoluteY="77dp" />
+
+    <LinearLayout
+        android:layout_width="328dp"
+        android:layout_height="wrap_content"
+        android:padding="12dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/lblTipo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Tipo"
+            />
+
+        <Spinner
+            android:id="@+id/spinnerTp"
+            android:layout_width="198dp"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+    <CheckBox
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/swDisponible"
+        android:text="Disponible"
+        android:checked="true"
+        />
+
+
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/lsProductos"/>
+
+</LinearLayout>
